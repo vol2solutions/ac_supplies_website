@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AC Supplies</title>
+
+<!-- ===================== STYLES ===================== -->
+<style>
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #0b0f1a;
+    color: white;
+}
+
+/* NAVBAR */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background: rgba(0,0,0,0.6);
+    position: sticky;
+    top: 0;
+}
+
+nav a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #0b0f1a, #14213d);
+}
+
+.hero h1 {
+    font-size: 48px;
+}
+
+.hero button {
+    padding: 12px 25px;
+    background: #00aaff;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+/* SECTION */
+.section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+/* PRODUCTS */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product {
+    background: #111827;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* ORDER FORM */
+form {
+    max-width: 500px;
+    margin: auto;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+}
+
+button {
+    padding: 12px;
+    width: 100%;
+    background: #00aaff;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #020617;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav>
+    <h2>AC Supplies</h2>
+    <div>
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#order">Order</a>
+    </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section id="home" class="hero">
+    <h1>AC Supplies</h1>
+    <p>Cleaner Solutions. Better Results.</p>
+    <button onclick="scrollToSection('order')">Order Now</button>
+</section>
+
+<!-- ===================== PRODUCTS ===================== -->
+<section id="products" class="section">
+    <h2>Our Products</h2>
+
+    <div class="products">
+
+        <div class="product">
+            <h3>Degreaser</h3>
+            <p>R50</p>
+        </div>
+
+        <div class="product">
+            <h3>Floor Cleaner</h3>
+            <p>R60</p>
+        </div>
+
+        <div class="product">
+            <h3>Glass Cleaner</h3>
+            <p>R40</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- ===================== ORDER FORM ===================== -->
+<section id="order" class="section">
+    <h2>Place Your Order</h2>
+
+    <form>
+
+        <!-- CUSTOMER INFO -->
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="text" id="phone" placeholder="Phone Number" required>
+
+        <!-- PRODUCTS -->
+        <label>Degreaser (R50)</label>
+        <input type="number" id="degreaser" value="0">
+
+        <label>Floor Cleaner (R60)</label>
+        <input type="number" id="floor" value="0">
+
+        <label>Glass Cleaner (R40)</label>
+        <input type="number" id="glass" value="0">
+
+        <!-- BUTTON -->
+        <button type="button" onclick="sendOrder()">Send Order via WhatsApp</button>
+
+    </form>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+    <p>© 2026 AC Supplies</p>
+</footer>
+
+<!-- ===================== SCRIPT ===================== -->
+<script>
+
+// Scroll function
+function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+}
+
+// WhatsApp Order Function
+function sendOrder() {
+
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+
+    let degreaser = parseInt(document.getElementById("degreaser").value) || 0;
+    let floor = parseInt(document.getElementById("floor").value) || 0;
+    let glass = parseInt(document.getElementById("glass").value) || 0;
+
+    let total = 0;
+    let message = "*AC SUPPLIES ORDER*%0A%0A";
+
+    if (degreaser > 0) {
+        let price = degreaser * 50;
+        total += price;
+        message += `Degreaser x${degreaser} = R${price}%0A`;
+    }
+
+    if (floor > 0) {
+        let price = floor * 60;
+        total += price;
+        message += `Floor Cleaner x${floor} = R${price}%0A`;
+    }
+
+    if (glass > 0) {
+        let price = glass * 40;
+        total += price;
+        message += `Glass Cleaner x${glass} = R${price}%0A`;
+    }
+
+    message += `%0ATotal: R${total}%0A%0A`;
+    message += `Name: ${name}%0APhone: ${phone}`;
+
+    let whatsappNumber = "27XXXXXXXXX"; // CHANGE THIS
+
+    let url = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+    window.open(url, "_blank");
+}
+
+</script>
+
+</body>
+</html>
